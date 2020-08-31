@@ -12,6 +12,7 @@ package panicwrap
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"os/exec"
@@ -194,6 +195,7 @@ func Wrap(c *WrapConfig) (int, error) {
 	}()
 
 	if err := cmd.Wait(); err != nil {
+		fmt.Printf("got an error while waiting %v\n", err)
 		exitErr, ok := err.(*exec.ExitError)
 		if !ok {
 			// This is some other kind of subprocessing error.
